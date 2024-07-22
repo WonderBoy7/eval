@@ -1,0 +1,34 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1f1f1f; /* Couleur de fond sombre */
+    color: #fff; /* Couleur du texte blanc */
+}
+
+header, nav, main, footer {
+    padding: 20px;
+}
+
+/* Styles pour la navigation */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ccc; /* Couleur du lien */
+}
+
+nav ul li a:hover {
+    color: #007bff; /* Couleur du lien au survol */
+}
+
+/* Autres styles à ajouter selon les besoins */

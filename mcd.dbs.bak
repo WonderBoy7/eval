@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="cinema" id="PostgreSQL-129a" database="PostgreSQL" >
+	<schema name="cinema" >
+		<table name="billet_achete" prior="tbl" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="idseance" type="integer" jt="4" />
+			<column name="idplace" type="integer" jt="4" />
+			<index name="pk_billet_achete" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_billet_achete_seance" to_schema="cinema" to_table="seance" >
+				<fk_column name="idseance" pk="id" />
+			</fk>
+			<fk name="fk_billet_achete_place" to_schema="cinema" to_table="place" >
+				<fk_column name="idplace" pk="id" />
+			</fk>
+		</table>
+		<table name="categorie_film" prior="categorie" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="designation" type="varchar" length="30" jt="12" />
+			<index name="pk_categorie_film" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="film" prior="tbl" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="titre" type="varchar" length="50" jt="12" />
+			<column name="synopsis" type="varchar" length="255" jt="12" />
+			<column name="description" type="varchar" length="30" jt="12" />
+			<column name="duree" type="time" jt="92" />
+			<column name="idcategorie" type="integer" jt="4" />
+			<index name="pk_film" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_film_categorie_film" to_schema="cinema" to_table="categorie_film" >
+				<fk_column name="idcategorie" pk="id" />
+			</fk>
+		</table>
+		<table name="place" prior="tbl" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="idsalle" type="integer" jt="4" />
+			<column name="range" type="varchar" length="1" jt="12" />
+			<column name="numero" type="integer" jt="4" />
+			<index name="pk_place" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_place" to_schema="cinema" to_table="salle" >
+				<fk_column name="idsalle" pk="id" />
+			</fk>
+		</table>
+		<table name="salle" prior="tbl" spec="" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="designation" type="varchar" length="60" jt="12" />
+			<index name="pk_salle" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="seance" prior="tbl" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="idfilm" type="integer" jt="4" />
+			<column name="idsalle" type="integer" jt="4" />
+			<column name="heure_diffusion" type="time" jt="92" />
+			<column name="date_diffusion" type="date" jt="91" >
+				<defo><![CDATA[CURRENT_DATE]]></defo>
+			</column>
+			<index name="pk_seance" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_seance_salle" to_schema="cinema" to_table="salle" >
+				<fk_column name="idsalle" pk="id" />
+			</fk>
+			<fk name="fk_seance_film" to_schema="cinema" to_table="film" >
+				<fk_column name="idfilm" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-500" show_relation="columns" >
+		<entity schema="cinema" name="billet_achete" color="C1D8EE" x="336" y="480" />
+		<entity schema="cinema" name="categorie_film" color="C1D8EE" x="832" y="320" />
+		<entity schema="cinema" name="film" color="C1D8EE" x="736" y="80" />
+		<entity schema="cinema" name="place" color="2075C4" x="160" y="288" />
+		<entity schema="cinema" name="salle" color="2075C4" x="48" y="96" />
+		<entity schema="cinema" name="seance" color="C1D8EE" x="544" y="128" />
+		<group name="cinema" color="2075C4" >
+			<comment><![CDATA[Tout ce qui a attrait aux objets du cinema]]></comment>
+			<entity schema="cinema" name="place" />
+			<entity schema="cinema" name="salle" />
+		</group>
+		<group name="billeterie" color="EE2323" >
+			<entity schema="cinema" name="billet_achete" />
+		</group>
+		<group name="cinémathèque" color="4DF603" >
+			<entity schema="cinema" name="categorie_film" />
+			<entity schema="cinema" name="seance" />
+			<entity schema="cinema" name="film" />
+		</group>
+	</layout>
+</project>
